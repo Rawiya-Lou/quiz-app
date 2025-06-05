@@ -1,10 +1,19 @@
 /* fredoka one font family */
   @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 :root{
-  --Primary: RGB(0, 200, 180); /* Teal */
+  --Primary: #008080; /* Teal */
   --Secondary: RGB(255, 220, 0); /*Yellow*/
   --Accent: RGB(255, 60, 120); /*hot pink*/
   --Background: rgb(251, 248, 248); /*Light Gray*/
+  --Navy-Blue: #0909b5;
+  --Forest-Green: #2eb92e;
+  --Royal-Purple: #7851a9;
+  --Charcoal-Grey: #396583;
+  --Burgundy: #a9153a;
+  --Dark-Slate-Grey: #3e8e8e;
+  --Midnight-Blue: #1919d4;
+  --Eggplant: #af3775;
+  --Deep-Pink: #ff1493;
 }
 
 *,
@@ -45,7 +54,7 @@
     text-align: center;
     letter-spacing: 4px;
     text-shadow: 0 1px 1px #000;
-    font-size: 5em;
+    font-size: 5.1em;
     overflow: hidden;
     
 }
@@ -66,6 +75,7 @@
         width: 1.4ch;
         
     }
+    
     100%{
         width: 200px;
         transform: rotateY(-360deg);
@@ -117,15 +127,19 @@
 .options{
     display: flex;
     flex-flow: column;
-    gap: 12px;
+    gap: 20px;
     width: 300px;
     padding: 32px;
     margin: 0 auto;
+    
    
 }
 .options div{
-    padding: 6px 4px;
+    padding: 0;
+    margin: 0;
     position: relative;
+    top: 0;
+    height: 40px;
     text-align: center;
 }
 
@@ -144,23 +158,23 @@ input[type="radio"]{
    margin: 0;
    padding: 0;
    line-height: 40px;
-   transition: border 300ms ease;
+   transition: border 50ms ease;
 }
 
 input[type="radio"]:checked{
-    border: 4px solid var(--Primary);
+    border: 4px solid var(--Dark-Slate-Grey);
     color: #fff;
+
 }
 
 label{
     cursor: pointer;
     display: inline-block;
     width: 100%;
-    height: 100%;
     margin: 0;
     padding: 0;
     position: absolute;
-    top: 15px;
+    top: 10px;
     left: 0px;
     text-align: center;
 }
@@ -172,7 +186,7 @@ border-radius: 25px;
 color: #847d7d;
 font-size: 18px;
 width:236px;
-transition: all 50ms ease;
+transition: all 0.5s ease;
 
 }
 
@@ -182,4 +196,59 @@ transition: all 50ms ease;
     text-shadow: 0px 1px 1px #232222;
     cursor: pointer;
     
+}
+
+/* show answer style*/
+
+.answer-container{
+    width: 600px;
+    max-width: 95%;
+    margin: auto;
+    background-color: var(--Accent);
+    padding: 32px 16px 16px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    border-radius: 25px;
+    font-weight: 200;
+    box-shadow: 0px 2px 10px var(--Primary);
+    user-select: none;
+}
+
+.answer-container p {
+    max-width: 40ch;
+    line-height: 30px;
+    font: 20px;
+    font-weight: 600;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.answer-container h1{
+    text-align: center;
+    font-size: 3em;
+}
+
+.answer-container h2{
+    text-align: center;
+    font-size: 2em;
+}
+
+.answer-container h3{
+    font-size: 1.5em;
+    
+}
+
+#next{
+    padding: 16px;
+    border-radius: 25px ;
+    border: none;
+    background-color: var(--Background);
+    color: rgb(9, 171, 204);
+    font-size: 16px;
+    cursor: pointer;
+
 }

@@ -62,35 +62,81 @@ const quiz = [
 ]
 
 const startBtn = document.getElementById('start-btn');
-
-
+const container = document.getElementById('container');
 startBtn.addEventListener('click', () =>{
-    getCheckedOption();
+    getQuiz();
      
 })
 
 
 function getRandomQuestion() {
-    const random = Math.floor(Math.random() * quiz.length)
+    const random = Math.floor(Math.random() * quiz.length);
     return quiz[random].question;
 }
 
-function getMatchingQuestion() {
+function getQuiz() {
     const ranQuestion = getRandomQuestion();
     const matchQuestion = quiz.filter(obj => obj.question === ranQuestion);
-    return matchQuestion[0];
+
+    const {question, options, answer, fun_fact} = matchQuestion[0];
+    let checkedOption;
+
+    container.innerHTML = renderHtml(question, options);
+
+    const quizContainer = document.querySelector('.quiz-container');
+    const optionsElem = document.querySelectorAll(`input[name="option"]`);
+
+    optionsElem.forEach(option => {
+        option.addEventListener('change', () => {
+            if(option.checked){
+                checkedOption = option.value;
+                quizContainer.innerHTML += `<button id="answer-btn" class="active">Show Answer</button>`
+            }
+
+            const showAnswerBtn = document.getElementById('answer-btn');
+            showAnswerBtn.addEventListener('click', () => {
+              container.innerHTML = renderAnswerHtml(answer, checkedOption, fun_fact);
+              const answerContainer = document.querySelector('.answer-container');
+             changeElementColor(answerContainer);
+             document.getElementById('next').addEventListener('click',() => {
+                getQuiz();
+             })
+            })
+        })
+   });
+    
+    return;
 }
 
+function getRandomColor() {
+    const colors = [
+        'var(--Secondary)',
+        'var(--Primary)',
+        'var(--Accent)',
+        'var(--Deep-Pink)',
+        'var(--Eggplant)',
+        'var(--Midnight-Blue)',
+        'var(--Dark-Slate-Grey)',
+        'var(--Burgundy)',
+        'var(--Charcoal-Grey)',
+        'var(--Royal-Purple)',
+        'var(--Forest-Green)',
+        'var(--Navy-Blue)'
+    ];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+}
 
-function renderHtml(){
-    let displayHtml;
-    const object = getMatchingQuestion();
-    const question = object.question;
-    const options = object.options;
+function changeElementColor(answerContainer) {
+   const randomColor = getRandomColor();
+   answerContainer.style.backgroundColor = randomColor;
+}
 
-    const optionHtml = options.map((option, index) => `<div>
-                   <input type="radio" name="option" id="option-${index + 1}">
-                    <label for="option-${index + 1}">${options[index]}</label>
+function renderHtml(question, arr){
+    let displayHtml = '';
+    const optionHtml = arr.map((elem, index) => `<div>
+                   <input type="radio" name="option" id="option-${index + 1}" value="${elem}">
+                    <label for="option-${index + 1}">${elem}</label>
                 </div>`).join('');
 
     return displayHtml = `
@@ -104,42 +150,19 @@ function renderHtml(){
     `
 }
 
-const container = document.getElementById('container');
+function renderAnswerHtml(answer, checkedOption, funFact) {
+    let answerHtml = '';
+    const result = answer === checkedOption ? 'Correct!' : 'Incorrect. Try again!';
+    answerHtml =  `
+        <div class="answer-container">
+            <h1>${result}</h1>
+            <h2>Answer is: ${answer}</h2>
 
-function getCheckedOption(){
-    container.innerHTML = renderHtml();
-    let checked;
-    let checkedValue;
-    const options = document.getElementById('options');
-    const quizContainer = document.querySelector('.quiz-container');
-
-    options.addEventListener('click', (e) =>{
-        if(e.target.tagName === 'INPUT'){
-            checked = e.target.checked;
-            if(checked){
-                const showAnswerBtn = `
-                <button id="answer-btn" class="active">Answer</button>`
-                quizContainer.innerHTML += showAnswerBtn;
-            }
-        }
-        
-        if(e.target.tagName === 'LABEL'){
-
-            checkedValue = e.target.textContent;
-            
-            console.log(checkedValue);
-             const correctAnswer = quiz.filter(obj => obj.answer === checkedValue);
-             console.log(correctAnswer.length === 1);
-     
-            if (correctAnswer.length === 1) {
-                console.log("Correct answer!");
-        
-            } else {
-                console.log("Incorrect answer. Try again!");
-            }
-           
-        }
-     });
+            <h3>Fun fact:</h3>
+            <p>${funFact}</p>
+        <button id="next">Next question</button>
+    </div>`;
+    return answerHtml
 
 }
 
