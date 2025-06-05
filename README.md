@@ -1,4 +1,4 @@
-```
+
 # Quiz Application
 
 ## Description
