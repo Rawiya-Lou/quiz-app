@@ -1,6 +1,8 @@
 
 # Quiz Application
 
+![quiz app](images/quiz-app-pic.PNG)
+
 ## Description
 
 This is a simple quiz application built with HTML, CSS, and JavaScript. It presents the user with a series of multiple-choice questions and provides feedback on their answers.
